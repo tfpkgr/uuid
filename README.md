@@ -1,97 +1,80 @@
-# @tfpkgr/package-name
+# @tfpkgr/uuid
 
-A standardized TypeScript-based npm package template with automatic bundling using **tsup**.
+This package provides a comprehensive utility for working with UUIDs (Universally Unique Identifiers). It includes functions for generating, validating, parsing, and manipulating UUIDs, as well as a `UUID` class for advanced operations.
 
-## Features
+## Installation
 
--   **TypeScript support**: Ensures type safety and maintainability.
--   **Automatic bundling**: Uses `tsup` to bundle TypeScript into CommonJS (CJS) and ECMAScript Module (ESM) formats.
--   **Google TypeScript Style**: Enforces code consistency with `gts`.
--   **GitHub Packages Registry**: Pre-configured for publishing to GitHub Packages.
--   **Linting & Formatting**: Includes `gts` for linting and auto-fixing code style issues.
--   **GitHub Actions**: Automated publishing workflow on release.
-
-## Getting Started
-
-### 1. Clone the Repository
-
-```sh
-npx degit tfpkgr/template-npm my-new-package
-cd my-new-package
+```bash
+npm install @tfpkgr/uuid
 ```
 
-### 2. Rename the Package
+## Usage
 
-Before installing dependencies, update the `name` field in `package.json` to your package name. This ensures `package-lock.json` is correctly updated when you install dependencies.
+### Importing the Package
 
-### 3. Install Dependencies
-
-```sh
-npm install
+```typescript
+import uuid, {UUID} from '@tfpkgr/uuid';
 ```
 
-### 4. Customize Package
+### Generating UUIDs
 
--   Update `package.json` with the appropriate `description` and `author`.
--   Modify `src/index.ts` to implement your package functionality.
+```typescript
+// Generate a UUID v4
+const newUUID = uuid.v4();
+console.log(newUUID);
 
-### 5. Build the Package
+// Generate a UUID v1
+const uuidV1 = uuid.v1();
+console.log(uuidV1);
 
-```sh
-npm run build
+// Generate a UUID v4 with a custom prefix
+const prefixedUUID = UUID.v4WithPrefix('custom-prefix');
+console.log(prefixedUUID);
 ```
 
-This will generate the `dist/` directory containing the compiled files.
+### Validating UUIDs
 
-### 6. Lint & Fix Code
-
-```sh
-npm run lint  # Check for issues
-npm run fix   # Auto-fix issues
+```typescript
+const isValid = uuid.validate('550e8400-e29b-41d4-a716-446655440000');
+console.log(isValid); // true or false
 ```
 
-### 7. Publish to GitHub Packages
+### Parsing and Stringifying UUIDs
 
-#### Automatic Publishing on Release
+```typescript
+const bytes = uuid.parse('550e8400-e29b-41d4-a716-446655440000');
+console.log(bytes);
 
-This repository includes a GitHub Actions workflow (`.github/workflows/publish.yaml`) that automatically publishes the package when a release is created.
-
-#### Manual Publishing
-
-1. Authenticate with GitHub:
-    ```sh
-    npm login --registry=https://npm.pkg.github.com
-    ```
-2. Publish the package:
-    ```sh
-    npm publish
-    ```
-
-## File Structure
-
-```
-my-new-package/
-├── src/              # Source TypeScript files
-│   ├── index.ts      # Main entry point
-├── dist/             # Compiled output (ignored in Git)
-├── .github/workflows/ # GitHub Actions workflow for publishing
-│   ├── publish.yaml  # Publish package on release
-├── tsconfig.json     # TypeScript configuration
-├── tsconfig.build.json # Build-specific TypeScript config
-├── tsup.config.ts    # tsup bundler config
-├── package.json      # Project metadata & dependencies
-├── README.md         # Project documentation
-├── LICENSE           # License file
+const stringified = uuid.stringify(bytes);
+console.log(stringified);
 ```
 
-## [Multiple Exports](docs/multiple-exports.md)
+### Using the `UUID` Class
 
-If your package has multiple exports, refer to [this guide](docs/multiple-exports.md) for configuration details.
+```typescript
+// Create a new UUID instance
+const myUUID = new UUID();
+console.log(myUUID.toString());
+
+// Access properties
+console.log(myUUID.int); // Integer representation
+console.log(myUUID.hex); // Hexadecimal representation
+console.log(myUUID.bytes); // Byte array
+console.log(myUUID.time); // Timestamp (if v1 UUID)
+
+// Convert to JSON
+console.log(myUUID.toJSON());
+```
+
+### Extracting Time from a UUID
+
+```typescript
+const timestamp = uuid.extractTimeFromUUID(
+	'550e8400-e29b-41d4-a716-446655440000',
+);
+console.log(timestamp);
+```
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-🚀 Built with ❤️ by MyDeck
+This package is licensed under the MIT License.

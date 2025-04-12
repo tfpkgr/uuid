@@ -1,5 +1,5 @@
 {
-	"name": "@tfpkgr/npm-template",
+	"name": "@tfpkgr/uuid",
 	"version": "0.0.0",
 	"description": "Package description",
 	"main": "dist/index.js",
@@ -14,11 +14,11 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/tfpkgr/npm-template.git"
+		"url": "git+https://github.com/tfpkgr/uuid.git"
 	},
 	"keywords": [
 		"tfpkgr",
-		"npm-template"
+		"uuid"
 	],
 	"author": "tfpkgr",
 	"publishConfig": {
@@ -36,13 +36,16 @@
 	],
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/tfpkgr/npm-template/issues"
+		"url": "https://github.com/tfpkgr/uuid/issues"
 	},
-	"homepage": "https://github.com/tfpkgr/npm-template#readme",
+	"homepage": "https://github.com/tfpkgr/uuid#readme",
 	"devDependencies": {
 		"@types/node": "^22.14.1",
 		"gts": "^6.0.2",
 		"tsup": "^8.4.0",
 		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"uuid": "^11.1.0"
 	}
 }
